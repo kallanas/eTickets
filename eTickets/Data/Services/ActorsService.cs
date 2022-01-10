@@ -1,4 +1,5 @@
-﻿using eTickets.Models;
+﻿using eTickets.Data.Base;
+using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -7,42 +8,11 @@ using System.Threading.Tasks;
 
 namespace eTickets.Data.Services
 {
-    public class ActorsService : IActorsService
+    public class ActorsService : EntityBaseRepository<Actor>, IActorsService
     {
-        private readonly AppDbContext _context;
-
-        public ActorsService(AppDbContext context)
+        public ActorsService(AppDbContext context) :base(context)
         {
-            _context = context;
         }
-        public async Task AddAsync(Actor actor)
-        {
-            await _context.AddAsync(actor);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            var actorToDelete = await _context.Actors.FirstOrDefaultAsync(a => a.Id == id);
-            _context.Remove(actorToDelete);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<Actor>> GetAllAsync()
-        {
-            return await _context.Actors.ToListAsync();
-        }
-
-        public async Task<Actor> GetByIdAsync(int id)
-        {
-            return await _context.Actors.FirstOrDefaultAsync(a=> a.Id == id);
-        }
-
-        public async Task<Actor> UpdateAsync(int id, Actor actor)
-        {
-            _context.Update(actor);
-            await _context.SaveChangesAsync();
-            return actor;
-        }
+        
     }
 }
