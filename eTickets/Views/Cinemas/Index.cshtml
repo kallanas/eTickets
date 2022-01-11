@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Cinema>
 
-@{ 
+@{
     ViewData["Title"] = "List of Cinemas";
 }
 
@@ -17,7 +17,7 @@
             </thead>
             <tbody>
                 @foreach (var item in Model)
-	            {
+                {
                     <tr>
                         <td class="align-middle">
                             <img style="max-width:150px;" class="rounded-circle" src="@item.Logo" alt="logo of cinema" />
@@ -30,12 +30,10 @@
                             <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Delete</a>
                         </td>
                     </tr>
-	            }
+                }
             </tbody>
         </table>
     </div>
 </div>
 
-<div class="text-white" style="position: fixed; right:25px; bottom:25px;">
-    <a asp-controller="Cinemas" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add New</a>
-</div>
+@await Html.PartialAsync("_CreateItem", "Cinemas")

@@ -2,17 +2,17 @@
 @using eTickets.Data;
 
 @{
-    ViewData["Title"] = "Create a new Movie";
+    ViewData["Title"] = "Update Movie";
 }
 
 <div class="row">
     <div class="col-md-8 offset-2">
         <p>
-            <h4 class="text-center">Create an new Movie</h4>
+            <h4 class="text-center">Update Movie</h4>
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Create">
+                <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                     <div class="row">
@@ -22,7 +22,7 @@
                                 <input asp-for="Name" class="form-control" />
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
-                            
+
                             <div class="form-group">
                                 <label asp-for="StartDate" class="control-label"></label>
                                 <input type="date" asp-for="StartDate" class="form-control" />
@@ -83,8 +83,8 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-outline-success float-right" />
-                        <a asp-controller="Movies" asp-action="Index" class="btn btn-outline-secondary">Show All</a>
+                        <input type="submit" value="Update" class="btn btn-outline-success float-right" />
+                        <a asp-action="Index" class="btn btn-outline-secondary">Show All</a>
                     </div>
                 </form>
             </div>
@@ -97,6 +97,11 @@
         $("#ImageURL").on("change", function () {
             var output = document.getElementById('ImageURLPreview');
             output.src = $(this).val();
+        })
+
+        $(document).ready(function () {
+            var output = document.getElementById('ImageURLPreview');
+            output.src = $("#ImageURL").val();
         })
     </script>
 }
