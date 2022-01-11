@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace eTickets.Data.Base
@@ -36,6 +37,13 @@ namespace eTickets.Data.Base
         {
             return await _context.Set<T>().ToListAsync();
         }
+
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, object>> includeProperty)
+        {
+            IQueryable<T> query = _context.Set<T>();
+            return await query.Include(includeProperty).ToListAsync();
+        }
+
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FirstOrDefaultAsync(a => a.Id == id);
 
         public async Task UpdateAsync(int id, T entity)
