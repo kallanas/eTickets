@@ -38,7 +38,9 @@ namespace eTickets.Controllers
 
             if (!string.IsNullOrWhiteSpace(searchString))
             {
-                var filteredResult = allMovies.Where(x => x.Name.ToLower().Contains(searchString.ToLower()) || x.Description.ToLower().Contains(searchString.ToLower())).ToList();
+                var filteredResult = allMovies
+                    .Where(x => searchString.ToLower().Contains(x.Name.ToLower()) || searchString.ToLower().Contains(x.Description.ToLower()))
+                    .ToList();
                 
                 if (filteredResult.Any())
                 {
